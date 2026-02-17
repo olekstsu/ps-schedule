@@ -1,0 +1,6 @@
+pytest
+setuptools
+wheel
+build
+twine
+# TODO: update the necessary requirements to develop this package

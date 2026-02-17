@@ -1,0 +1,26 @@
+[project]
+name = "ps-schedule"
+version = "4.0"
+description = "Бібліотека для роботи з ПС-Розклад від Політех-софт"
+authors = [{name = "olekstsu", email = ""}]
+requires-python = ">=3.9"
+dynamic = ["optional-dependencies"]
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "requests>=2.32.5",
+    "html5lib>=1.1"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+optional-dependencies = {dev = {file = ["dev-requirements.txt"]}} # add packages for development in the dev-requirements.txt file
+
+[project.scripts]
+# TODO: add your CLI entry points here
+
+
+
+
