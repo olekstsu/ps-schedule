@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
-from models import ScheduleParameters, ScheduleTable, Lesson
+from .models import ScheduleParameters, ScheduleTable, Lesson
 
 class Schedule:
     """Клас розкладу з ПС-Розклад.
