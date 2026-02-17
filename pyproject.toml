@@ -2,7 +2,7 @@
 name = "ps-schedule"
 version = "4.0"
 description = "Бібліотека для роботи з ПС-Розклад від Політех-софт"
-authors = [{name = "olekstsu", email = ""}]
+authors = [{name = "olekstsu"}]
 requires-python = ">=3.9"
 dynamic = ["optional-dependencies"]
 dependencies = [
