@@ -1,6 +1,6 @@
 [project]
 name = "ps-schedule"
-version = "1.0.1"
+version = "1.1.0"
 description = "Бібліотека-парсер для \"ПС-Розклад v4.0\" від ПП \"Політек-Софт\"."
 authors = [{name = "olekstsu"}]
 requires-python = ">=3.9"
