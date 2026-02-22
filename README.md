@@ -36,7 +36,7 @@ print(f"===| {table.date} |===")
 for lesson in table.lessons:
     
     # Перевіряємо чи є пара
-    if lesson.description.strip():
+    if lesson.description:
         
         # Виписуємо в консоль час початку пари, час кінця пари і її опис.
         print(f"[{lesson.start_time} - {lesson.end_time}]: {lesson.description}")

@@ -11,7 +11,7 @@ class ScheduleParameters:
     
     Args:
         faculty (int): Ідентифікатор факультету (у ПС-Розклад, ідентифікатор представляє собою порядковий номер у dropdown "Оберіть факультет", записується як "1001 (1), 1011 (11) і т.д.).
-        teacher (str): ПІБ викладача. (Пишеться прямо строкою як у ПС-Розклад вибираєте викладача,).
+        teacher (str): ПІБ викладача. (Пишеться прямо рядком як у ПС-Розклад вибираєте викладача,).
         course (int): Номер курсу. (Необов'язковий параметр, якщо вказано групу).
         group (str): Назва групи. (Шифр групи відповідно до вашого навчального закладу)
         sdate (date): Дата початку розкладу. (Необов'язковий параметр, розклад за замовчуванням за поточний тиждень).
@@ -33,11 +33,12 @@ class ScheduleParameters:
     
 class Lesson:
     """Клас для збереження інформації про пару. Містить номер пари, час початку та кінця, а також опис пари."""
-    def __init__(self, number: int, start_time: time, end_time: time, description: str):
+    def __init__(self, number: int, start_time: time, end_time: time, description: list[str], links: list[str] = []):
         self.number = number
         self.start_time = start_time
         self.end_time = end_time
         self.description = description
+        self.links = links
 
     def get_dict(self) -> dict:
         return {

@@ -26,19 +26,25 @@ class Schedule:
         """Парсинг розкладу з ПС-Розклад."""
         bs = BeautifulSoup(html, "html5lib")
         tables = bs.find_all("table", class_="table")
-        schedule = []
+        schedule = list()
 
         for table in tables:
             _date = datetime.strptime(table.find_previous("h4").contents[0].text.strip(), "%d.%m.%Y").date()
             lessons = list()
             
             for row in table.find_all("tr"):
-                cols = row.find_all("td")
-                number = int(cols[0].text.strip())
-                stime, etime = [datetime.strptime(t.strip(), "%H:%M").time() for t in cols[1].stripped_strings]
-                description = cols[2].text.strip()
+                number, time, description = row.find_all("td")
 
-                lesson = Lesson(number=number, start_time=stime, end_time=etime, description=description)
+                # Номер пари
+                f_number = int(number.text.strip())
+                # Початок та кінець пари
+                f_stime, f_etime = [datetime.strptime(t.strip(), "%H:%M").time() for t in time.stripped_strings]
+                # Опис (список строк у колонці)
+                f_description = list(description.stripped_strings)
+                # Всі посилання з строки
+                f_links = [a.get("href") for a in description.find_all("a") if a.get("href")]
+
+                lesson = Lesson(number=f_number, start_time=f_stime, end_time=f_etime, description=f_description, links=f_links)
                 lessons.append(lesson)
 
             day_schedule = ScheduleTable(date=_date, lessons=lessons)
