@@ -2,6 +2,7 @@
 name = "ps-schedule"
 version = "1.1.0"
 description = "Бібліотека-парсер для \"ПС-Розклад v4.0\" від ПП \"Політек-Софт\"."
+readme = "README.md"
 authors = [{name = "olekstsu"}]
 requires-python = ">=3.9"
 dynamic = ["optional-dependencies"]
@@ -10,6 +11,10 @@ dependencies = [
     "requests>=2.32.5",
     "html5lib>=1.1"
 ]
+
+[project.urls]
+"GitHub" = "https://github.com/olekstsu/ps-schedule"
+"Документація" = "https://github.com/olekstsu/ps-schedule/blob/main/docs/base.md"
 
 [build-system]
 requires = ["setuptools", "wheel"]

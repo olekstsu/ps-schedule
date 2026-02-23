@@ -1,10 +1,10 @@
 # Коротка документація до бібліотеки
 
 ## Зміст
-* [Schedule(domain, params)](#class-scheduledomain-str-params-scheduleparameters)
-* [ScheduleParameters(faculty, teacher, course, group, sdate, edate)](#class-scheduleparametersfaculty-int--0-teacher-str--none-course-int--0-group-str--none-sdate-date--none-edate-date--none)
-* [ScheduleTable(date, lessons)](#class-scheduletabledate-date-lessons-listlesson)
-* [Lesson(number, start_time, end_time, description)](#class-lessonnumber-int-start_time-time-end_time-time-description-str)
+* [`Schedule(domain, params)`](#class-scheduledomain-str-params-scheduleparameters)
+* [`ScheduleParameters(faculty, teacher, course, group, sdate, edate)`](#class-scheduleparametersfaculty-int--0-teacher-str--none-course-int--0-group-str--none-sdate-date--none-edate-date--none)
+* [`ScheduleTable(date, lessons)`](#class-scheduletabledate-date-lessons-listlesson)
+* [`Lesson(number, start_time, end_time, description)`](#class-lessonnumber-int-start_time-time-end_time-time-description-str)
 
 
 ## `class Schedule(domain: str, params: ScheduleParameters)`
