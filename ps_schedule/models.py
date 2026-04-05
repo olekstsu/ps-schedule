@@ -1,7 +1,8 @@
+import datetime
 from datetime import date, time
 
 class ScheduleParameters:
-    """Параметри для класу Schedule. Заповнюйте ці параметри так само як би ви заповнювали форму у ПС-Розклад.\n
+    """Параметри для класу `Schedule`. Заповнюйте ці параметри так само як би ви заповнювали форму у ПС-Розклад.
     
     Example:
         ```python
@@ -10,12 +11,12 @@ class ScheduleParameters:
         ```
     
     Args:
-        faculty (int): Ідентифікатор факультету (у ПС-Розклад, ідентифікатор представляє собою порядковий номер у dropdown "Оберіть факультет", записується як "1001 (1), 1011 (11) і т.д.).
-        teacher (str): ПІБ викладача. (Пишеться прямо рядком як у ПС-Розклад вибираєте викладача,).
-        course (int): Номер курсу. (Необов'язковий параметр, якщо вказано групу).
-        group (str): Назва групи. (Шифр групи відповідно до вашого навчального закладу)
-        sdate (date): Дата початку розкладу. (Необов'язковий параметр, розклад за замовчуванням за поточний тиждень).
-        edate (date): Дата кінця розкладу. (Необов'язковий параметр, розклад за замовчуванням за поточний тиждень).
+        `faculty` (`int`): Ідентифікатор факультету (у ПС-Розклад, ідентифікатор можна дізнатись через код елемента випадаючого списку для вибору факультету). Можна отримати за допомогою функції `get_faculty_id()`.
+        `teacher` (`str`): ПІБ викладача. (Пишеться прямо рядком як у ПС-Розклад, коли обираєте викладача).
+        `course` (`int`): Номер курсу. (Необов'язковий параметр, якщо вказано групу).
+        `group` (`str`): Назва групи. (Шифр групи відповідно до вашого навчального закладу)
+        `sdate` (`date`): Дата початку розкладу. (Необов'язковий параметр, розклад за замовчуванням за поточний тиждень).
+        `edate` (`date`): Дата кінця розкладу. (Необов'язковий параметр, розклад за замовчуванням за поточний тиждень).
     """
     def __init__(self, faculty: int = 0, teacher: str = None, course: int = 0, group: str = None, sdate: date = None, edate: date = None):
         self.params = {
@@ -32,7 +33,22 @@ class ScheduleParameters:
         return self.params
     
 class Lesson:
-    """Клас для збереження інформації про пару. Містить номер пари, час початку та кінця, а також опис пари."""
+    """Представляє собою рядок з таблиці розкладу (`ScheduleTable`).
+
+    Attributes:
+        `number` (`int`): Порядковий номер пари у таблиці
+        `start_time` (`time`): Час початку пари
+        `end_time` (`time`): Час закінчення пари
+        `description` (`list[str]`): Опис пари. Рядки у списку розбиті згідно з тим як ПС-Розклад переносить їх у рядку таблиці.
+        `links` (`list[str]`): Список клікабельних посилань, прикріплених до розкладу.
+    """
+
+    number: int
+    start_time: time
+    end_time: time
+    description: list[str]
+    links: list[str]
+
     def __init__(self, number: int, start_time: time, end_time: time, description: list[str], links: list[str] = []):
         self.number = number
         self.start_time = start_time
@@ -49,8 +65,17 @@ class Lesson:
         }
         
 class ScheduleTable:
-    """Клас для збереження розкладу на певний день. Містить дату та список пар на цей день."""
-    def __init__(self, date: date, lessons: list[Lesson]):
+    """Клас для збереження розкладу на певний день. Містить дату та список пар на цей день.
+
+    Attributes:
+        `date` (`date`): Дата до якої відноситься таблиця
+        `lessons` (`list[Lesson]`): Список пар на цей день
+    """
+
+    date: datetime.date
+    lessons: list[Lesson]
+
+    def __init__(self, date: datetime.date, lessons: list[Lesson]):
         self.date = date
         self.lessons = lessons
 
@@ -61,10 +86,30 @@ class ScheduleTable:
         }
 
 class SearchType:
+    """Перелік типів для пошуку.
+
+    Attributes:
+        `TEACHER`: Шукати викладачів
+        `GROUP`: Шукати групи
+    """
     TEACHER = 141
     GROUP = 142
 
 class SearchParameters:
+    """Параметри для класу `Search`.
+
+    Args:
+        `type` (`SearchType`): Тип для пошуку.
+        `query` (`str`): Запит за яким робити пошук.
+        `faculty` (`int`): Ідентифікатор факультету. Можна отримати через функцію `get_faculty_id()`.
+        `course` (`int`): Номер курсу. Необов'язковий параметр, якщо тип пошуку `SearchType.TEACHER`.
+    """
+
+    type: SearchType
+    query: str
+    faculty: int
+    course: int
+
     def __init__(self, type: SearchType, query: str, faculty: int = 0, course: int = 0):
         self.type = type
         self.query = query

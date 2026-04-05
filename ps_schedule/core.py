@@ -4,11 +4,11 @@ from bs4 import BeautifulSoup
 from .models import ScheduleParameters, ScheduleTable, Lesson, SearchParameters
 
 class Schedule:
-    """Клас розкладу з ПС-Розклад.
+    """Основний клас для отримання розкладу.
     
     Args:
-        domain (str): Домен ПС-Деканат (наприклад "https://dekanat.nung.edu.ua/", посилання може відрізнятись для вашого навчального закладу).
-        params (ScheduleParameters): Параметри для отримання розкладу.
+        `domain` (`str`): Домен ПС-Деканат (наприклад "https://dekanat.nung.edu.ua/", посилання може відрізнятись для вашого навчального закладу).
+        `params` (`ScheduleParameters`): Параметри запиту до розкладу.
     """
     def __init__(self, domain: str, params: ScheduleParameters):
         self._url = f"{domain}/cgi-bin/timetable.cgi"
@@ -52,6 +52,12 @@ class Schedule:
         return schedule
 
 class Search:
+    """Клас для пошуку викладачів або груп.
+
+    Args:
+        `domain` (`str`): Домен ПС-Деканат (наприклад "https://dekanat.nung.edu.ua/", посилання може відрізнятись для вашого навчального закладу).
+        `params` (`SearchParameters`): Параметри для пошуку.
+    """
     def __init__(self, domain: str, params: SearchParameters):
         self._url = f"{domain}/cgi-bin/timetable.cgi"
 
@@ -62,5 +68,6 @@ class Search:
         self.results = response.json()
 
     def get(self) -> list[str]:
+        """Повертає результат пошуку у вигляді списку рядків."""
         return self.results["suggestions"]
     
