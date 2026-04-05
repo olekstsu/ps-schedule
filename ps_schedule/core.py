@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
-from .models import ScheduleParameters, ScheduleTable, Lesson
+from .models import ScheduleParameters, ScheduleTable, Lesson, SearchParameters
 
 class Schedule:
     """Клас розкладу з ПС-Розклад.
@@ -51,5 +51,16 @@ class Schedule:
             schedule.append(day_schedule)
         return schedule
 
+class Search:
+    def __init__(self, domain: str, params: SearchParameters):
+        self._url = f"{domain}/cgi-bin/timetable.cgi"
 
+        response = requests.get(self._url, params=params.get_dict())
+        response.encoding = "windows-1251"
+        self.url = response.url
+
+        self.results = response.json()
+
+    def get(self) -> list[str]:
+        return self.results["suggestions"]
     

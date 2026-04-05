@@ -60,3 +60,22 @@ class ScheduleTable:
             "lessons": [lesson.get_dict() for lesson in self.lessons]
         }
 
+class SearchType:
+    TEACHER = 141
+    GROUP = 142
+
+class SearchParameters:
+    def __init__(self, type: SearchType, query: str, faculty: int = 0, course: int = 0):
+        self.type = type
+        self.query = query
+        self.faculty = faculty
+        self.course = course
+
+    def get_dict(self) -> dict:
+        return {
+            "lev": self.type,
+            "faculty": self.faculty,
+            "course": self.course,
+            "query": self.query,
+            "n": 701
+        }
