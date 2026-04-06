@@ -5,10 +5,12 @@
 * [`ScheduleParameters(faculty, teacher, course, group, sdate, edate)`](#class-scheduleparametersfaculty-int--0-teacher-str--none-course-int--0-group-str--none-sdate-date--none-edate-date--none)
 * [`ScheduleTable(date, lessons)`](#class-scheduletabledate-date-lessons-listlesson)
 * [`Lesson(number, start_time, end_time, description)`](#class-lessonnumber-int-start_time-time-end_time-time-description-liststr-links-liststr)
+* [`SearchParameters(type, query, faculty, course)`](#class-searchparameterstype-searchtype-query-str-faculty-int--0-course-int--0)
+* [`SearchType()`](#class-searchtype)
 
 ### Функції
-* 
-* 
+* [`get_faculty_id(domain, faculty_name)`](#def-get_faculty_iddomain-str-faculty_name-str---int--none)
+* [`get_faculties(domain)`](#def-get_facultiesdomain-str---dictint-str)
 
 
 
