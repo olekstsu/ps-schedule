@@ -34,8 +34,10 @@
 ### `params: ScheduleParameters`
 Параметри запиту які при створенні об'єкта класу передаються на сервер "ПС-Розклад" для отримання розкладу.
 
-### `def get(self) -> list[ScheduleTable]`
-Обов'язково треба викликати цю функцію щоб отримати список таблиць розкладу (`ScheduleTable`).
+### `def get(self, verify: bool = True) -> list[ScheduleTable]`
+Повертає розклад у вигляді списку об'єктів ScheduleTable.
+
+Агрумент `verify` вказує чи потрібно верифікувати SSL сертифікат при запиті до розкладу. Встановлюйте на `False` якщо отримуєте помилку `requests.exceptions.SSLError`
 
 Для зручності можете викликати її одразу після опису класу:
 ```python
@@ -59,9 +61,10 @@ s = Schedule("...", ScheduleParameters(...)).get()
 ### `params: SearchParameters`
 Параметри для пошуку, які аналогічно класу `Schedule`, передаються на сервер "ПС-Розклад" при створенні об'єкта класу.
 
-### `def get(self) -> list[str]`
+### `def get(self, verify: bool = True) -> list[str]`
 Функція для отримання результату пошуку. Повертає список всього що підпадає під задані параметри (`SearchParameters`).
 
+Агрумент `verify` вказує чи потрібно верифікувати SSL сертифікат при запиті до розкладу. Встановлюйте на `False` якщо отримуєте помилку `requests.exceptions.SSLError`
 
 
 ## `class ScheduleParameters(faculty: int = 0, teacher: str = None, course: int = 0, group: str = None, sdate: date = None, edate: date = None)`

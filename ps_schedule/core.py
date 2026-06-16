@@ -12,14 +12,15 @@ class Schedule:
     """
     def __init__(self, domain: str, params: ScheduleParameters):
         self._url = f"{domain}/cgi-bin/timetable.cgi"
+        self._params = params
 
-        response = requests.post(self._url, data=params.get_dict())
+    def get(self, verify: bool = True) -> list[ScheduleTable]:
+        """Повертає розклад у вигляді списку об'єктів ScheduleTable."""
+        response = requests.post(self._url, data=self._params.get_dict(), verify=verify)
         response.encoding = "windows-1251"
 
         self.schedule = self.__parse(response.text)
-
-    def get(self) -> list[ScheduleTable]:
-        """Повертає розклад у вигляді списку об'єктів ScheduleTable."""
+        
         return self.schedule
 
     def __parse(self, html: str) -> list[ScheduleTable]:
@@ -60,14 +61,15 @@ class Search:
     """
     def __init__(self, domain: str, params: SearchParameters):
         self._url = f"{domain}/cgi-bin/timetable.cgi"
+        self._params = params
 
-        response = requests.get(self._url, params=params.get_dict())
+    def get(self, verify: bool = True) -> list[str]:
+        """Повертає результат пошуку у вигляді списку рядків."""
+        response = requests.get(self._url, params=self._params.get_dict(), verify=verify)
         response.encoding = "windows-1251"
         self.url = response.url
 
         self.results = response.json()
 
-    def get(self) -> list[str]:
-        """Повертає результат пошуку у вигляді списку рядків."""
         return self.results["suggestions"]
     
