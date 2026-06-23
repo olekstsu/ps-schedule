@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def get_faculty_id(domain: str, faculty_name: str) -> int | None:
+def get_faculty_id(domain: str, faculty_name: str, verify: bool = True) -> int | None:
     """Функція для отримання ідентифікатора факультету за його назвою. Ідентифікатор потрібен для заповнення параметрів розкладу та пошуку.
 
     Args:
@@ -13,7 +13,7 @@ def get_faculty_id(domain: str, faculty_name: str) -> int | None:
     """
     url = f"{domain}/cgi-bin/timetable.cgi"
 
-    response = requests.post(url)
+    response = requests.post(url, verify=verify)
     response.encoding = "windows-1251"
 
     bs = BeautifulSoup(response.text, "html5lib")
@@ -23,7 +23,7 @@ def get_faculty_id(domain: str, faculty_name: str) -> int | None:
     return next((int(op.get("value")) for op in options if op.getText() == faculty_name), None)
 
 
-def get_faculties(domain: str) -> dict[int, str]:
+def get_faculties(domain: str, verify: bool = True) -> dict[int, str]:
     """Функція для отримання словника факультетів у ПС-Деканат.
 
     Args:
@@ -34,7 +34,7 @@ def get_faculties(domain: str) -> dict[int, str]:
     """
     url = f"{domain}/cgi-bin/timetable.cgi"
 
-    response = requests.post(url)
+    response = requests.post(url, verify=verify)
     response.encoding = "windows-1251"
 
     bs = BeautifulSoup(response.text, "html5lib")

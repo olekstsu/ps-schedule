@@ -9,8 +9,8 @@
 * [`SearchType()`](#class-searchtype)
 
 ### Функції
-* [`get_faculty_id(domain, faculty_name)`](#def-get_faculty_iddomain-str-faculty_name-str---int--none)
-* [`get_faculties(domain)`](#def-get_facultiesdomain-str---dictint-str)
+* [`get_faculty_id(domain, faculty_name, verify)`](#def-get_faculty_iddomain-str-faculty_name-str---int--none)
+* [`get_faculties(domain, verify)`](#def-get_facultiesdomain-str---dictint-str)
 
 
 
@@ -26,7 +26,7 @@
 * [`params: ScheduleParameters`](#params-scheduleparameters) — Параметри запиту до розкладу.
 
 **Методи:**
-* [`def get(self) -> list[ScheduleTable]`](#def-getself---listscheduletable) — Повертає список таблиць розкладу
+* [`def get(self, verify) -> list[ScheduleTable]`](#def-getself---listscheduletable) — Повертає список таблиць розкладу
 
 ### `domain: str`
 Домен краще витягувати напряму з сайту розкладу а не з домашньої сторінки "ПС-Деканат", бо є ВНЗ які мають різні домени на домашню сторіну і розклад.
@@ -53,7 +53,7 @@ s = Schedule("...", ScheduleParameters(...)).get()
 * [`params: SearchParameters`](#params-searchparameters) — Параметри для пошуку.
 
 **Методи:**
-* [`def get(self) -> list[str]`](#def-getself---liststr) — Повертає результат пошуку у вигляді списку рядків.
+* [`def get(self, verify) -> list[str]`](#def-getself---liststr) — Повертає результат пошуку у вигляді списку рядків.
 
 ### `domain: str`
 Домен краще витягувати напряму з сайту розкладу а не з домашньої сторінки "ПС-Деканат", бо є ВНЗ які мають різні домени на домашню сторіну і розклад.
@@ -319,12 +319,13 @@ SearchParameters(type=SearchType.TEACHER, query="ІП", course=3) # Виведе
 
 
 
-## `def get_faculty_id(domain: str, faculty_name: str) -> int | None`
+## `def get_faculty_id(domain: str, faculty_name: str, verify: bool = True) -> int | None`
 Функція для отримання ідентифікатора факультету за його назвою. Ідентифікатор потрібен для заповнення параметрів розкладу та пошуку.
 
 **Аргументи:**
 * `domain: str` — Домен ПС-Деканат (наприклад "https://dekanat.nung.edu.ua/", посилання може відрізнятись для вашого навчального закладу).
 * `faculty_name: str` — Назва факультету, для якого потрібно отримати ідентифікатор.
+* `verify: bool = True` — Верифікація SSL сертифікатів.
     
 **Повертає:**
 * `int` — Ідентифікатор факультету
@@ -332,11 +333,12 @@ SearchParameters(type=SearchType.TEACHER, query="ІП", course=3) # Виведе
 
 
 
-## `def get_faculties(domain: str) -> dict[int, str]`
+## `def get_faculties(domain: str, verify: bool = True) -> dict[int, str]`
 Функція для отримання словника факультетів у ПС-Деканат.
 
 **Аргументи:**
 * `domain: str` — Домен ПС-Деканат (наприклад "https://dekanat.nung.edu.ua/", посилання може відрізнятись для вашого навчального закладу).
+* `verify: bool = True` — Верифікація SSL сертифікатів.
 
 **Повертає:**
 * `dict[int, str]` — Словник факультетів у ПС-Деканат. Ключами є ідентифікатори факультетів, а значеннями — їх назви.
