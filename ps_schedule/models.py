@@ -1,6 +1,8 @@
 import datetime
 from datetime import date, time
 
+from bs4 import Tag
+
 class ScheduleParameters:
     """Параметри для класу `Schedule`. Заповнюйте ці параметри так само як би ви заповнювали форму у ПС-Розклад.
     
@@ -49,12 +51,18 @@ class Lesson:
     description: list[str]
     links: list[str]
 
+    _raw_description: Tag
+
     def __init__(self, number: int, start_time: time, end_time: time, description: list[str], links: list[str] = []):
         self.number = number
         self.start_time = start_time
         self.end_time = end_time
         self.description = description
         self.links = links
+
+    def get_raw_description(self) -> Tag:
+        """Повертає об'єкт `bs4.Tag`, який містить HTML-розмітку колонки з описом пари у таблиці розкладу. Можна використовувати для ручного парсингу тегів."""
+        return self._raw_description
 
     def get_dict(self) -> dict:
         return {

@@ -46,6 +46,7 @@ class Schedule:
                 f_links = [a.get("href") for a in description.find_all("a") if a.get("href")]
 
                 lesson = Lesson(number=f_number, start_time=f_stime, end_time=f_etime, description=f_description, links=f_links)
+                lesson._raw_description = description
                 lessons.append(lesson)
 
             day_schedule = ScheduleTable(date=_date, lessons=lessons)
